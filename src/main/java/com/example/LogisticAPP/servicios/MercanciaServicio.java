@@ -3,7 +3,9 @@ package com.example.LogisticAPP.servicios;
 
 import com.example.LogisticAPP.helpers.mensajes.MensajesError;
 import com.example.LogisticAPP.helpers.validaciones.MercanciaValidacion;
+import com.example.LogisticAPP.modelos.DTO.MercanciaDTO;
 import com.example.LogisticAPP.modelos.Mercancia;
+import com.example.LogisticAPP.modelos.mapas.IMapaMercancia;
 import com.example.LogisticAPP.repositorios.IMercanciaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +20,12 @@ public class MercanciaServicio {
     @Autowired
     MercanciaValidacion validacion;
 
+    @Autowired
+    IMapaMercancia iMapaMercancia;
+
 
     //Registrar en BD una mercancia
-    public Mercancia registrar(Mercancia datosMercancia)throws Exception{
+    public MercanciaDTO registrar(Mercancia datosMercancia)throws Exception{
         try{
             if(!this.validacion.validarDescripcion(datosMercancia.getDescripcion())){
                 throw new Exception(MensajesError.DESCRIPCION_INVALIDA.getMensaje());
@@ -31,7 +36,7 @@ public class MercanciaServicio {
             if(!this.validacion.validarPeso(datosMercancia.getPesoOcupa())){
                 throw new Exception(MensajesError.PESO_INVALIDO.getMensaje());
             }
-            return this.consultaEnBD.save(datosMercancia);
+            return this.iMapaMercancia.transformarMercanciaEnDTO(this.consultaEnBD.save(datosMercancia));
         }catch(Exception error){
             throw new Exception(error.getMessage());
         }
