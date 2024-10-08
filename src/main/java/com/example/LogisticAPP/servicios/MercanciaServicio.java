@@ -10,6 +10,8 @@ import com.example.LogisticAPP.repositorios.IMercanciaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MercanciaServicio {
 
@@ -43,6 +45,13 @@ public class MercanciaServicio {
     }
 
     //Consultar la informacion de todas las mercancias
+    public List<MercanciaDTO> consultar() throws Exception{
+        try{
+            return this.iMapaMercancia.tarnsformarVariasMercanciasEnDTO(this.consultaEnBD.findAll());
+        }catch(Exception error){
+            throw new Exception(error.getMessage());
+        }
+    }
 
     //consultar la informacion de una mercancia por id
 
