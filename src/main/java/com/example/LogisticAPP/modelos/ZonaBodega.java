@@ -1,9 +1,9 @@
 package com.example.LogisticAPP.modelos;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class ZonaBodega {
@@ -22,6 +22,10 @@ public class ZonaBodega {
     private Double volumenOcupado; //solo positivo
     //pesoOcupado
     private Double pesoOcupado; //solo positivo
+
+    @OneToMany(mappedBy = "zonaBodega")
+    @JsonManagedReference
+    private List<Mercancia> mercancias;
 
     public ZonaBodega() {
     }

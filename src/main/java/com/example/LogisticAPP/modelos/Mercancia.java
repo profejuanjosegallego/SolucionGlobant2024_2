@@ -1,5 +1,6 @@
 package com.example.LogisticAPP.modelos;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -36,6 +37,14 @@ public class Mercancia {
 
     @Column(name="fecha_salida", nullable = false)
     private LocalDate fechaSalida;
+
+    //las relaciones no son ams que nuevos atributos
+    //siempre el atributo sera la tabla con la que me voy a relacionar
+
+    @ManyToOne
+    @JoinColumn(name="fk_zonaBodega", referencedColumnName = "idZona")
+    @JsonBackReference
+    private ZonaBodega zonaBodega;
 
     public Mercancia() {
     }
