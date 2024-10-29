@@ -61,6 +61,7 @@ public class MercanciaControlador {
     )
     public ResponseEntity<?> llamandoAlServicioParaGuardar(@RequestBody Mercancia datosMercancia){
         try{
+            System.out.println(datosMercancia.getDescripcion());
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .body(this.mercanciaServicio.registrar(datosMercancia));
